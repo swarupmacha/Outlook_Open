@@ -3,12 +3,18 @@ import urllib.parse
 
 st.title("Outlook Email Sender")
 
-subject = "Daily Job Status Report"
-body = "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nSwarup"
+subject = "24x7 Monitoring Shifts - Reminder"
+body = "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nYour Name"
+
 to = ""  # optional (leave empty or add emails)
 cc = "swarup.kumar.macha@accenture.com"
 
-mailto_link = f"mailto:?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+mailto_link = (
+    f"mailto:{to}"
+    f"?subject={urllib.parse.quote(subject)}"
+    f"&body={urllib.parse.quote(body)}"
+    f"&cc={urllib.parse.quote(cc)}"
+)
 
 if st.button("Send Email"):
     st.markdown(
