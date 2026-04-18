@@ -1,46 +1,21 @@
 import streamlit as st
 import win32com.client as win32
 
-# Function to create Outlook email
-def create_outlook_email(subject, body, to="", cc=""):
-    try:
-        outlook = win32.Dispatch('outlook.application')
-        mail = outlook.CreateItem(0)
+def send_from_outlook():
+    outlook = win32.Dispatch('outlook.application')
+    mail = outlook.CreateItem(0)
 
-        mail.To = to
-        mail.CC = cc
-        mail.Subject = subject
-        mail.Body = body
+    mail.To = "yourteam@email.com"   # optional
+    mail.Subject = "Daily Job Status Report"
+    mail.Body = "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nSwarup"
 
-        mail.Display()  # Opens Outlook draft window
-        return True
+    # 👉 Opens Outlook draft
+    mail.Display()
 
-    except Exception as e:
-        st.error(f"Error: {e}")
-        return False
+    # 👉 If you want auto send, use this instead:
+    # mail.Send()
 
+st.title("Outlook Mail Sender")
 
-# Streamlit UI
-st.set_page_config(page_title="Outlook Email Sender", layout="centered")
-
-st.title("📧 Outlook Email Sender")
-
-st.write("Create and open a draft email in Outlook")
-
-# Input fields
-to = st.text_input("To (optional)")
-cc = st.text_input("CC (optional)")
-subject = st.text_input("Subject", "Daily Job Status Report")
-
-body = st.text_area(
-    "Email Body",
-    "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nSwarup",
-    height=200
-)
-
-# Button
 if st.button("Send Email"):
-    success = create_outlook_email(subject, body, to, cc)
-
-    if success:
-        st.success("Outlook draft opened successfully!")
+    send_from_outlook()
