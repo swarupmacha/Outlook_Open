@@ -1,10 +1,14 @@
----------------------------------------------------------------------------
-ModuleNotFoundError                       Traceback (most recent call last)
-Cell In[1], line 11
-      8     webbrowser.open(mailto_link)
-     10 # Example (Streamlit)
----> 11 import streamlit as st
-     13 if st.button("Send Email"):
-     14     open_outlook_draft()
+import streamlit as st
+import webbrowser
 
-ModuleNotFoundError: No module named 'streamlit'
+def open_outlook_draft():
+    subject = "Daily Job Status Report"
+    body = "Hi Team,\n\nThis is a test email.\n\nRegards,\nSwarup"
+
+    mailto_link = f"mailto:?subject={subject}&body={body}"
+    webbrowser.open(mailto_link)
+
+st.title("Email Sender")
+
+if st.button("Send Email"):
+    open_outlook_draft()
