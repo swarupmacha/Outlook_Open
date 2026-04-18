@@ -1,21 +1,15 @@
 import streamlit as st
-import win32com.client as win32
+import urllib.parse
 
-def send_from_outlook():
-    outlook = win32.Dispatch('outlook.application')
-    mail = outlook.CreateItem(0)
+st.title("Outlook Email Sender")
 
-    mail.To = "yourteam@email.com"   # optional
-    mail.Subject = "Daily Job Status Report"
-    mail.Body = "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nSwarup"
+subject = "Daily Job Status Report"
+body = "Hi Team,\n\nAll jobs are running fine.\n\nRegards,\nSwarup"
 
-    # 👉 Opens Outlook draft
-    mail.Display()
-
-    # 👉 If you want auto send, use this instead:
-    # mail.Send()
-
-st.title("Outlook Mail Sender")
+mailto_link = f"mailto:?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
 
 if st.button("Send Email"):
-    send_from_outlook()
+    st.markdown(
+        f'<meta http-equiv="refresh" content="0; url={mailto_link}">',
+        unsafe_allow_html=True
+    )
