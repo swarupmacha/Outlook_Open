@@ -10,6 +10,8 @@ mailto_link = f"mailto:?subject={urllib.parse.quote(subject)}&body={urllib.parse
 
 if st.button("Send Email"):
     st.markdown(
-        f'<meta http-equiv="refresh" content="0; url={mailto_link}">',
+        f'<a href="{mailto_link}" target="_self">'
+        f'<button style="padding:10px 20px;font-size:16px;">Open Outlook</button>'
+        f'</a>',
         unsafe_allow_html=True
     )
